@@ -1,13 +1,15 @@
 <template>
   <div class="main">
     <img src="../../static/img/bg.png" alt class="bgImg" />
-    <img src="../../static/img/logo.png" alt class="logoImg" />
+     <img src="../../static/img/logo.png" alt class="logoIcon" />
+    <img src="../../static/img/title.png" alt class="logoImg" />
     <img src="../../static/img/phone.png" alt class="phoneImg" />
     <span class="copyText" v-clipboard:copy="me" 
             v-clipboard:success="onCopy" 
             v-clipboard:error="onError">复制链接浏览器打开</span>
     <div class="btn" @click="downApp(1)">安卓下载</div>
     <div class="btn" @click="downApp(0)">iOS下载</div>
+    <div class="tip">如点击无效请复制至浏览器打开</div>
   </div>
 </template>
 <script>
@@ -34,7 +36,7 @@ export default {
     },
     downApp(type){
       if(type==0){
-        window.location = this.appStore
+        window.location.href = this.appStore
         // window.location.href = this.appStore
       }else{
         window.location.href = this.url
@@ -90,11 +92,12 @@ export default {
         app = navigator.appVersion;
       //var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Linux") > -1;
       var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+      console.log(isIOS)
       if (isIOS) {
         window.location.href = this.appStore
       }else{
           var t = Date.now(),
-          r = this.appStore;
+          r = this.url;
           timer = setTimeout(function() {
             return Date.now() - t > 2200
               ? (clearTimeout(timer), !1)
@@ -126,16 +129,25 @@ export default {
   left:0;
   top:0;
 }
+
+.logoIcon{
+  position: fixed;
+  width:66px;
+  height: 66px;
+  top: 7px;
+  left:7px;
+}
+
 .logoImg {
   width: 193px;
-  height: 175px;
-  margin-top: 30px;
-  margin-bottom: 48px;
+  height: 64px;
+  margin-bottom: 36px;
+  margin-top: 28px;
 }
 .phoneImg{
   width:327px;
-  height:352px;
-  margin-bottom:30px;
+  height:301px;
+  margin-bottom:34px;
 }
 .copyText{
   text-align: center;
@@ -143,7 +155,7 @@ export default {
   font-family: PingFang SC;
   font-weight: bold;
   color: #FFFFFF;
-  margin-bottom:40px;
+  margin-bottom:20px;
 }
 .btn{
   width: 290px;
@@ -157,6 +169,12 @@ export default {
   font-family: PingFang SC;
   font-weight: bold;
   color: #F85C25;
+}
+.tip{
+  text-align: center;
+  font-size: 12px;
+  margin-top:2px;
+  color: #fff;
 }
 </style>>
 
